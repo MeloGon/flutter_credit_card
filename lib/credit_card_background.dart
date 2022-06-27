@@ -38,7 +38,7 @@ class CardBackground extends StatelessWidget {
           Container(
             margin: const EdgeInsets.all(AppConstants.creditCardPadding),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(16),
               gradient: glassmorphismConfig != null
                   ? glassmorphismConfig!.gradient
                   : backgroundGradientColor,
