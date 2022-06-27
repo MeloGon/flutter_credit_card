@@ -280,51 +280,66 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
             child: Padding(
               padding: const EdgeInsets.only(left: 16),
               child: Text(
-                widget.cardNumber.isEmpty ? 'XXXX XXXX XXXX XXXX' : number,
+                widget.cardNumber.isEmpty ? '●●●● ●●●● ●●●● ●●●●' : number,
                 style: widget.textStyle ?? defaultTextStyle,
               ),
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'VALID\nTHRU',
-                    style: widget.textStyle ??
-                        defaultTextStyle.copyWith(fontSize: 7),
-                    textAlign: TextAlign.center,
+          Row(
+            children: [
+              Visibility(
+                visible: widget.isHolderNameVisible,
+                child: Expanded(
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Titular de la tarjeta',
+                          style: widget.textStyle ??
+                              defaultTextStyle.copyWith(fontSize: 7),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          widget.cardHolderName.isEmpty
+                              ? widget.labelCardHolder
+                              : widget.cardHolderName,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: widget.textStyle ?? defaultTextStyle,
+                        ),
+                      ],
+                    ),
                   ),
-                  const SizedBox(width: 5),
-                  Text(
-                    widget.expiryDate.isEmpty
-                        ? widget.labelExpiredDate
-                        : widget.expiryDate,
-                    style: widget.textStyle ?? defaultTextStyle,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Visibility(
-            visible: widget.isHolderNameVisible,
-            child: Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-                child: Text(
-                  widget.cardHolderName.isEmpty
-                      ? widget.labelCardHolder
-                      : widget.cardHolderName,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: widget.textStyle ?? defaultTextStyle,
                 ),
               ),
-            ),
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 16, bottom: 16),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        'Expire Date',
+                        style: widget.textStyle ??
+                            defaultTextStyle.copyWith(fontSize: 7),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(width: 5),
+                      Text(
+                        widget.expiryDate.isEmpty
+                            ? widget.labelExpiredDate
+                            : widget.expiryDate,
+                        style: widget.textStyle ?? defaultTextStyle,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -527,8 +542,9 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
   }
 
   Widget getCardTypeImage(CardType? cardType) {
-    final List<CustomCardTypeIcon> customCardTypeIcon = getCustomCardTypeIcon(cardType!);
-    if(customCardTypeIcon.isNotEmpty){
+    final List<CustomCardTypeIcon> customCardTypeIcon =
+        getCustomCardTypeIcon(cardType!);
+    if (customCardTypeIcon.isNotEmpty) {
       return customCardTypeIcon.first.cardImage;
     } else {
       return Image.asset(
@@ -540,12 +556,13 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
     }
   }
 
-    // This method returns the icon for the visa card type if found
-    // else will return the empty container
+  // This method returns the icon for the visa card type if found
+  // else will return the empty container
   Widget getCardTypeIcon(String cardNumber) {
     Widget icon;
     final CardType ccType = detectCCType(cardNumber);
-    final List<CustomCardTypeIcon> customCardTypeIcon = getCustomCardTypeIcon(ccType);
+    final List<CustomCardTypeIcon> customCardTypeIcon =
+        getCustomCardTypeIcon(ccType);
     if (customCardTypeIcon.isNotEmpty) {
       icon = customCardTypeIcon.first.cardImage;
       isAmex = ccType == CardType.americanExpress;
