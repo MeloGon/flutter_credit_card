@@ -379,7 +379,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
             child: Container(
               margin: const EdgeInsets.only(top: 16),
               height: 48,
-              color: Colors.black,
+              color: Colors.white.withOpacity(.2),
             ),
           ),
           Expanded(
@@ -390,18 +390,11 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
-                    flex: 9,
-                    child: Container(
-                      height: 48,
-                      color: Colors.white70,
-                    ),
-                  ),
-                  Expanded(
                     flex: 3,
                     child: Container(
-                      color: Colors.white,
+                      color: Colors.transparent,
                       child: Padding(
-                        padding: const EdgeInsets.all(5),
+                        padding: const EdgeInsets.only(top: 0, left: 20),
                         child: Text(
                           widget.cvvCode.isEmpty
                               ? isAmex
