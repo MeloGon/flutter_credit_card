@@ -417,9 +417,11 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
               alignment: Alignment.bottomRight,
               child: Padding(
                 padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-                child: widget.cardType != null
-                    ? getCardTypeImage(widget.cardType)
-                    : getCardTypeIcon(widget.cardNumber),
+                // child: widget.cardType != null
+                //     ? getCardTypeImage(widget.cardType)
+                //     : getCardTypeIcon(widget.cardNumber),
+                //se oculta el logo de visa en la parte de atras
+                child: const SizedBox(),
               ),
             ),
           ),
